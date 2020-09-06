@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-09-03 15:29:06
+-- 生成日期： 2020-09-06 22:52:50
 -- 服务器版本： 5.7.26
--- PHP 版本： 7.3.4
+-- PHP 版本： 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -159,7 +159,32 @@ CREATE TABLE `eamil_setting` (
 --
 
 INSERT INTO `eamil_setting` (`id`, `user_id`, `smtp_server`, `smtp_port`, `sender_email_address`, `smtp_proving_username`, `smtp_proving_password`, `ssl_encrypt_way`, `sender_show_name`, `receive_email_address`, `update_time`, `create_time`) VALUES
-(1, 1, '11', 22, '33', '44', '55', 1, '66', '77', 1599116278, 1599116245);
+(1, 1, 'smtp.qq.com', 465, '768190260@qq.com', '768190260@qq.com', '768190260', 2, '刘盖', '1583293461@qq.com', 1599381803, 1599116245);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `email_message_template`
+--
+
+CREATE TABLE `email_message_template` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '邮箱消息设置ID',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户ID',
+  `general_template` text CHARACTER SET utf8 COMMENT '通用-邮件模板',
+  `user_register_template` text CHARACTER SET utf8 COMMENT '用户注册-邮件模板',
+  `find_password_template` text CHARACTER SET utf8 COMMENT '密码找回-邮件模板',
+  `email_bind_template` text CHARACTER SET utf8 COMMENT '邮箱绑定-邮件模板',
+  `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `email_message_template`
+--
+
+INSERT INTO `email_message_template` (`id`, `user_id`, `general_template`, `user_register_template`, `find_password_template`, `email_bind_template`, `update_time`, `create_time`) VALUES
+(1, 1, '<p>1111</p>', '<p>2222</p>', '<p>3333</p>', '<p>4444</p>', 1599393975, 1599381028),
+(2, 2, '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, Tahoma, Arial, sans-serif; font-size: 12px; text-align: center; background-color: rgb(251, 251, 251);\">通用-邮件模板</span></p>', '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, Tahoma, Arial, sans-serif; font-size: 12px; text-align: center; background-color: rgb(251, 251, 251);\">用户注册-邮件模板</span></p>', '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, Tahoma, Arial, sans-serif; font-size: 12px; text-align: center; background-color: rgb(251, 251, 251);\">密码找回-邮件模板</span></p>', '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, Tahoma, Arial, sans-serif; font-size: 12px; text-align: center; background-color: rgb(251, 251, 251);\">邮箱绑定-邮件模板</span></p>', 0, 1599394913);
 
 -- --------------------------------------------------------
 
@@ -281,7 +306,33 @@ CREATE TABLE `search` (
 --
 
 INSERT INTO `search` (`id`, `user_id`, `site_status`, `search_key`, `update_time`, `create_time`) VALUES
-(1, 1, 1, '政治', 1598939477, 1597505001);
+(1, 1, 1, '政治', 1597543576, 1597505001);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `seo_setting`
+--
+
+CREATE TABLE `seo_setting` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT 'SEO设置ID',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户ID',
+  `link_mode` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '链接模式',
+  `route_delimiter` char(3) CHARACTER SET utf8 NOT NULL DEFAULT '-' COMMENT '路由分隔符',
+  `static_suffix` char(6) CHARACTER SET utf8 NOT NULL DEFAULT 'html' COMMENT '伪静态后缀',
+  `site_title` char(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '站点标题',
+  `site_key` char(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '站点关键字',
+  `site_description` text CHARACTER SET utf8 COMMENT '站点描述',
+  `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `seo_setting`
+--
+
+INSERT INTO `seo_setting` (`id`, `user_id`, `link_mode`, `route_delimiter`, `static_suffix`, `site_title`, `site_key`, `site_description`, `update_time`, `create_time`) VALUES
+(1, 1, 3, '-', 'html', 'ShopXO企业级B2C电商系统提供商 - 演示站点', '商城系统,开源电商系统,免费电商系统,PHP电商系统,商城系统,B2C电商系统,B2B2C电商系统', 'ShopXO是国内领先的商城系统提供商，为企业提供php商城系统、微信商城、小程序。', 1599403805, 1599403378);
 
 -- --------------------------------------------------------
 
@@ -423,6 +474,12 @@ ALTER TABLE `eamil_setting`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `email_message_template`
+--
+ALTER TABLE `email_message_template`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `message_template`
 --
 ALTER TABLE `message_template`
@@ -450,6 +507,12 @@ ALTER TABLE `pic_identifying_code`
 -- 表的索引 `search`
 --
 ALTER TABLE `search`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 表的索引 `seo_setting`
+--
+ALTER TABLE `seo_setting`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -511,6 +574,12 @@ ALTER TABLE `eamil_setting`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱设置id', AUTO_INCREMENT=2;
 
 --
+-- 使用表AUTO_INCREMENT `email_message_template`
+--
+ALTER TABLE `email_message_template`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱消息设置ID', AUTO_INCREMENT=3;
+
+--
 -- 使用表AUTO_INCREMENT `message_template`
 --
 ALTER TABLE `message_template`
@@ -539,6 +608,12 @@ ALTER TABLE `pic_identifying_code`
 --
 ALTER TABLE `search`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '搜索ID', AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `seo_setting`
+--
+ALTER TABLE `seo_setting`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'SEO设置ID', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `shop_message`
