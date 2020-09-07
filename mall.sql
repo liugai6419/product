@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-09-06 22:52:50
+-- 生成日期： 2020-09-07 17:28:00
 -- 服务器版本： 5.7.26
--- PHP 版本： 7.3.9
+-- PHP 版本： 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -76,6 +76,62 @@ INSERT INTO `admin` (`id`, `username`, `password`, `telephone`, `gender`, `login
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `agreement_mange`
+--
+
+CREATE TABLE `agreement_mange` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '协议管理',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
+  `agreement_mange` text CHARACTER SET utf8 COMMENT '用户注册协议',
+  `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `agreement_mange`
+--
+
+INSERT INTO `agreement_mange` (`id`, `user_id`, `agreement_mange`, `update_time`, `create_time`) VALUES
+(1, 1, '<p>111112222<br/></p>', 1599448637, 1599448624);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `authority_allocation`
+--
+
+CREATE TABLE `authority_allocation` (
+  `id` int(11) UNSIGNED NOT NULL COMMENT '权限id',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
+  `parent_id` int(11) UNSIGNED NOT NULL COMMENT '父级id',
+  `authority_name` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '权限名称',
+  `controller_name` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '控制器名称',
+  `method_name` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '方法名称',
+  `icon_name` char(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '图标名称',
+  `marshalling_sequence` tinyint(3) UNSIGNED NOT NULL COMMENT '排序顺序',
+  `is_show` tinyint(1) UNSIGNED NOT NULL COMMENT '是否显示',
+  `update_time` int(11) UNSIGNED DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `authority_allocation`
+--
+
+INSERT INTO `authority_allocation` (`id`, `user_id`, `parent_id`, `authority_name`, `controller_name`, `method_name`, `icon_name`, `marshalling_sequence`, `is_show`, `update_time`, `create_time`) VALUES
+(1, 1, 0, '系统设置', 'syste_setting', 'index', '1', 1, 1, 0, 1599467494),
+(2, 1, 0, '站点配置', 'site_config', 'index', '1', 2, 2, 0, 1599468873),
+(8, 1, 1, '后台配置', 'backstage_config', 'index', '1', 4, 2, 0, 1599469277),
+(7, 1, 6, '管理员列表', 'manager_list', 'index', '2', 3, 1, 0, 1599469109),
+(6, 1, 0, '权限控制', 'authority_control', 'index', '1', 10, 1, 0, 1599469013),
+(9, 1, 1, '商店信息', 'shop_message', 'index', '2', 2, 1, 0, 1599469369),
+(10, 1, 2, '站点配置', 'site_config', 'index', '3', 3, 1, 0, 1599469418),
+(11, 1, 2, '短信设置', 'message_setting', 'index', '2', 2, 1, 0, 1599469471),
+(12, 1, 2, '邮箱设置', 'email_setting', 'index', '', 5, 1, 0, 1599469579);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `backstage_config`
 --
 
@@ -142,7 +198,7 @@ INSERT INTO `base_configure` (`id`, `user_id`, `site_name`, `computer_logo`, `ph
 CREATE TABLE `eamil_setting` (
   `id` int(10) UNSIGNED NOT NULL COMMENT '邮箱设置id',
   `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
-  `smtp_server` char(255) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP服务器',
+  `smtp_server` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP服务器',
   `smtp_port` int(5) UNSIGNED DEFAULT NULL COMMENT 'SMTP端口',
   `sender_email_address` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '发信人邮件地址',
   `smtp_proving_username` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP身份验证用户名',
@@ -159,7 +215,7 @@ CREATE TABLE `eamil_setting` (
 --
 
 INSERT INTO `eamil_setting` (`id`, `user_id`, `smtp_server`, `smtp_port`, `sender_email_address`, `smtp_proving_username`, `smtp_proving_password`, `ssl_encrypt_way`, `sender_show_name`, `receive_email_address`, `update_time`, `create_time`) VALUES
-(1, 1, 'smtp.qq.com', 465, '768190260@qq.com', '768190260@qq.com', '768190260', 2, '刘盖', '1583293461@qq.com', 1599381803, 1599116245);
+(1, 1, 'smtp.qq.com', 465, '768190260@qq.com', '768190260@qq.com', 'klrrfgzknypabedh', 2, '刘盖', '1583293461@qq.com', 1599205835, 1599116245);
 
 -- --------------------------------------------------------
 
@@ -306,7 +362,7 @@ CREATE TABLE `search` (
 --
 
 INSERT INTO `search` (`id`, `user_id`, `site_status`, `search_key`, `update_time`, `create_time`) VALUES
-(1, 1, 1, '政治', 1597543576, 1597505001);
+(1, 1, 1, '政治', 1598939477, 1597505001);
 
 -- --------------------------------------------------------
 
@@ -456,6 +512,18 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `agreement_mange`
+--
+ALTER TABLE `agreement_mange`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 表的索引 `authority_allocation`
+--
+ALTER TABLE `authority_allocation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `backstage_config`
 --
 ALTER TABLE `backstage_config`
@@ -510,12 +578,6 @@ ALTER TABLE `search`
   ADD PRIMARY KEY (`id`);
 
 --
--- 表的索引 `seo_setting`
---
-ALTER TABLE `seo_setting`
-  ADD PRIMARY KEY (`id`);
-
---
 -- 表的索引 `shop_message`
 --
 ALTER TABLE `shop_message`
@@ -556,6 +618,18 @@ ALTER TABLE `admin`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '管理员id', AUTO_INCREMENT=3;
 
 --
+-- 使用表AUTO_INCREMENT `agreement_mange`
+--
+ALTER TABLE `agreement_mange`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '协议管理', AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `authority_allocation`
+--
+ALTER TABLE `authority_allocation`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '权限id', AUTO_INCREMENT=13;
+
+--
 -- 使用表AUTO_INCREMENT `backstage_config`
 --
 ALTER TABLE `backstage_config`
@@ -572,12 +646,6 @@ ALTER TABLE `base_configure`
 --
 ALTER TABLE `eamil_setting`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱设置id', AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `email_message_template`
---
-ALTER TABLE `email_message_template`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱消息设置ID', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `message_template`
@@ -608,12 +676,6 @@ ALTER TABLE `pic_identifying_code`
 --
 ALTER TABLE `search`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '搜索ID', AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `seo_setting`
---
-ALTER TABLE `seo_setting`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'SEO设置ID', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `shop_message`
