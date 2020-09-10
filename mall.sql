@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-09-07 17:28:00
+-- 生成日期： 2020-09-10 16:32:50
 -- 服务器版本： 5.7.26
 -- PHP 版本： 7.3.4
 
@@ -119,15 +119,14 @@ CREATE TABLE `authority_allocation` (
 --
 
 INSERT INTO `authority_allocation` (`id`, `user_id`, `parent_id`, `authority_name`, `controller_name`, `method_name`, `icon_name`, `marshalling_sequence`, `is_show`, `update_time`, `create_time`) VALUES
-(1, 1, 0, '系统设置', 'syste_setting', 'index', '1', 1, 1, 0, 1599467494),
+(1, 1, 0, '系统设置', 'system_setting', 'index', '1', 1, 1, 0, 1599469277),
 (2, 1, 0, '站点配置', 'site_config', 'index', '1', 2, 2, 0, 1599468873),
-(8, 1, 1, '后台配置', 'backstage_config', 'index', '1', 4, 2, 0, 1599469277),
-(7, 1, 6, '管理员列表', 'manager_list', 'index', '2', 3, 1, 0, 1599469109),
-(6, 1, 0, '权限控制', 'authority_control', 'index', '1', 10, 1, 0, 1599469013),
-(9, 1, 1, '商店信息', 'shop_message', 'index', '2', 2, 1, 0, 1599469369),
-(10, 1, 2, '站点配置', 'site_config', 'index', '3', 3, 1, 0, 1599469418),
-(11, 1, 2, '短信设置', 'message_setting', 'index', '2', 2, 1, 0, 1599469471),
-(12, 1, 2, '邮箱设置', 'email_setting', 'index', '', 5, 1, 0, 1599469579);
+(17, 1, 6, '管理员列表', 'manager_list', 'index', '', 30, 2, 0, 1599540752),
+(18, 1, 1, '后台配置', 'backstage_config', 'index', '', 10, 1, 0, 1599540833),
+(6, 1, 0, '权限控制', 'authority_control', 'index', '11', 10, 2, 1599546307, 1599469013),
+(20, 1, 6, '角色管理', 'role_controller', 'index', '', 20, 1, 0, 1599705492),
+(14, 1, 2, '短信设置', 'sms_setting', 'index', '', 2, 1, 1599546341, 1599539920),
+(21, 1, 6, '权限分配', 'authority_allocation', 'index', '', 30, 1, 1599705553, 1599705526);
 
 -- --------------------------------------------------------
 
@@ -341,6 +340,30 @@ CREATE TABLE `pic_identifying_code` (
 
 INSERT INTO `pic_identifying_code` (`id`, `user_id`, `code_valid_time`, `achieve_time_spacing`, `is_open_pic_identify`, `pic_code_regulation`, `update_time`, `create_time`) VALUES
 (1, 1, 112212, 223312, 1, '2,3', 1597463100, 1597461696);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `role_manage`
+--
+
+CREATE TABLE `role_manage` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '角色管理id',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
+  `role_delimiter` char(18) CHARACTER SET utf8 NOT NULL COMMENT '角色名称',
+  `authority` text CHARACTER SET utf8 COMMENT '拥有权限',
+  `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `role_manage`
+--
+
+INSERT INTO `role_manage` (`id`, `user_id`, `role_delimiter`, `authority`, `update_time`, `create_time`) VALUES
+(1, 1, '超级管理员', '6,17,21,20,2,14,1,18', 0, 1599717913),
+(2, 1, '管理员', '2,14,1,18', 0, 1599717951),
+(3, 1, '查看者', '1,18', 0, 1599717990);
 
 -- --------------------------------------------------------
 
@@ -572,6 +595,12 @@ ALTER TABLE `pic_identifying_code`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `role_manage`
+--
+ALTER TABLE `role_manage`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `search`
 --
 ALTER TABLE `search`
@@ -627,7 +656,7 @@ ALTER TABLE `agreement_mange`
 -- 使用表AUTO_INCREMENT `authority_allocation`
 --
 ALTER TABLE `authority_allocation`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '权限id', AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '权限id', AUTO_INCREMENT=22;
 
 --
 -- 使用表AUTO_INCREMENT `backstage_config`
@@ -670,6 +699,12 @@ ALTER TABLE `password_find`
 --
 ALTER TABLE `pic_identifying_code`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '图片验证码ID', AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `role_manage`
+--
+ALTER TABLE `role_manage`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色管理id', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `search`
