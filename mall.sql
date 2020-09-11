@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-09-10 16:32:50
+-- 生成日期： 2020-09-11 16:52:38
 -- 服务器版本： 5.7.26
 -- PHP 版本： 7.3.4
 
@@ -244,6 +244,34 @@ INSERT INTO `email_message_template` (`id`, `user_id`, `general_template`, `user
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `manager_list`
+--
+
+CREATE TABLE `manager_list` (
+  `id` int(10) UNSIGNED NOT NULL COMMENT '管理员id',
+  `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
+  `username` char(30) CHARACTER SET utf8 NOT NULL COMMENT '用户名',
+  `password` char(32) CHARACTER SET utf8 NOT NULL COMMENT '登录密码',
+  `telephone` char(11) CHARACTER SET utf8 NOT NULL COMMENT '手机号码',
+  `sex` tinyint(1) UNSIGNED NOT NULL COMMENT '性别',
+  `authority_group` int(11) UNSIGNED NOT NULL COMMENT '权限组',
+  `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `manager_list`
+--
+
+INSERT INTO `manager_list` (`id`, `user_id`, `username`, `password`, `telephone`, `sex`, `authority_group`, `update_time`, `create_time`) VALUES
+(1, 1, '刘盖', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 10, 0, 1599811023),
+(2, 1, '刘开放', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 10, 0, 1599812737),
+(3, 1, '刘芳', 'c33367701511b4f6020ec61ded352059', '15237367115', 1, 0, 0, 1599812821),
+(4, 2, '刘宗洋', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 0, 0, 1599813408);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `message_template`
 --
 
@@ -351,6 +379,7 @@ CREATE TABLE `role_manage` (
   `id` int(10) UNSIGNED NOT NULL COMMENT '角色管理id',
   `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
   `role_delimiter` char(18) CHARACTER SET utf8 NOT NULL COMMENT '角色名称',
+  `is_start` tinyint(1) UNSIGNED NOT NULL COMMENT '是否启用',
   `authority` text CHARACTER SET utf8 COMMENT '拥有权限',
   `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
@@ -360,10 +389,9 @@ CREATE TABLE `role_manage` (
 -- 转存表中的数据 `role_manage`
 --
 
-INSERT INTO `role_manage` (`id`, `user_id`, `role_delimiter`, `authority`, `update_time`, `create_time`) VALUES
-(1, 1, '超级管理员', '6,17,21,20,2,14,1,18', 0, 1599717913),
-(2, 1, '管理员', '2,14,1,18', 0, 1599717951),
-(3, 1, '查看者', '1,18', 0, 1599717990);
+INSERT INTO `role_manage` (`id`, `user_id`, `role_delimiter`, `is_start`, `authority`, `update_time`, `create_time`) VALUES
+(10, 1, '管理员', 1, '6,17,21,20', 0, 1599798103),
+(11, 1, '编辑者', 1, '1,18', 0, 1599798124);
 
 -- --------------------------------------------------------
 
@@ -571,6 +599,12 @@ ALTER TABLE `email_message_template`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `manager_list`
+--
+ALTER TABLE `manager_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `message_template`
 --
 ALTER TABLE `message_template`
@@ -677,6 +711,12 @@ ALTER TABLE `eamil_setting`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱设置id', AUTO_INCREMENT=2;
 
 --
+-- 使用表AUTO_INCREMENT `manager_list`
+--
+ALTER TABLE `manager_list`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '管理员id', AUTO_INCREMENT=5;
+
+--
 -- 使用表AUTO_INCREMENT `message_template`
 --
 ALTER TABLE `message_template`
@@ -704,7 +744,7 @@ ALTER TABLE `pic_identifying_code`
 -- 使用表AUTO_INCREMENT `role_manage`
 --
 ALTER TABLE `role_manage`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色管理id', AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色管理id', AUTO_INCREMENT=13;
 
 --
 -- 使用表AUTO_INCREMENT `search`
