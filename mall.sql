@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-09-11 16:52:38
+-- 生成日期： 2020-09-15 11:24:40
 -- 服务器版本： 5.7.26
--- PHP 版本： 7.3.4
+-- PHP 版本： 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,7 +57,7 @@ CREATE TABLE `admin` (
   `username` char(30) NOT NULL COMMENT '用户名称',
   `password` char(32) NOT NULL COMMENT '登录密码',
   `telephone` char(11) NOT NULL COMMENT '手机号码',
-  `gender` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '管理员性别(1男，2女)',
+  `sex` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '管理员性别(1男，2女)',
   `login_total` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '登录次数',
   `login_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上一次登录时间',
   `role_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '所属角色组',
@@ -69,9 +69,9 @@ CREATE TABLE `admin` (
 -- 转存表中的数据 `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`, `telephone`, `gender`, `login_total`, `login_time`, `role_id`, `add_time`, `update_time`) VALUES
+INSERT INTO `admin` (`id`, `username`, `password`, `telephone`, `sex`, `login_total`, `login_time`, `role_id`, `add_time`, `update_time`) VALUES
 (1, 'liugai', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 0, 0, 0, 0, 0),
-(2, 'liufang', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 0, 0, 0, 0, 0);
+(2, 'liufang', 'e10adc3949ba59abbe56e057f20f883e', '15237367777', 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE `authority_allocation` (
   `method_name` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '方法名称',
   `icon_name` char(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '图标名称',
   `marshalling_sequence` tinyint(3) UNSIGNED NOT NULL COMMENT '排序顺序',
-  `is_show` tinyint(1) UNSIGNED NOT NULL COMMENT '是否显示',
+  `is_show` tinyint(1) UNSIGNED NOT NULL COMMENT '是否显示(1为显示，2为隐藏)',
   `update_time` int(11) UNSIGNED DEFAULT '0' COMMENT '更新时间',
   `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -119,14 +119,28 @@ CREATE TABLE `authority_allocation` (
 --
 
 INSERT INTO `authority_allocation` (`id`, `user_id`, `parent_id`, `authority_name`, `controller_name`, `method_name`, `icon_name`, `marshalling_sequence`, `is_show`, `update_time`, `create_time`) VALUES
-(1, 1, 0, '系统设置', 'system_setting', 'index', '1', 1, 1, 0, 1599469277),
-(2, 1, 0, '站点配置', 'site_config', 'index', '1', 2, 2, 0, 1599468873),
-(17, 1, 6, '管理员列表', 'manager_list', 'index', '', 30, 2, 0, 1599540752),
-(18, 1, 1, '后台配置', 'backstage_config', 'index', '', 10, 1, 0, 1599540833),
-(6, 1, 0, '权限控制', 'authority_control', 'index', '11', 10, 2, 1599546307, 1599469013),
-(20, 1, 6, '角色管理', 'role_controller', 'index', '', 20, 1, 0, 1599705492),
-(14, 1, 2, '短信设置', 'sms_setting', 'index', '', 2, 1, 1599546341, 1599539920),
-(21, 1, 6, '权限分配', 'authority_allocation', 'index', '', 30, 1, 1599705553, 1599705526);
+(1, 1, 0, '系统设置', 'syste_setting', 'index', '1', 100, 1, 1600138242, 1599467494),
+(2, 1, 0, '站点配置', 'site_config', 'index', '1', 90, 2, 1600138261, 1599468873),
+(8, 1, 1, '后台配置', 'backstage_config', 'index', '1', 99, 2, 1600138388, 1599469277),
+(7, 1, 6, '管理员列表', 'manager_list', 'index', '2', 79, 1, 1600138740, 1599469109),
+(6, 1, 0, '权限控制', 'authority_control', 'index', '1', 80, 1, 1600138696, 1599469013),
+(9, 1, 1, '商店信息', 'shop_message', 'index', '2', 98, 1, 1600138411, 1599469369),
+(10, 1, 2, '站点设置', 'site_setting', 'index', '3', 89, 1, 1600138461, 1599469418),
+(11, 1, 2, '短信设置', 'sms_setting', 'index', '2', 88, 1, 1600138493, 1599469471),
+(12, 1, 2, '邮箱设置', 'email_setting', 'index', '', 87, 1, 1600138524, 1599469579),
+(13, 2, 0, '工具', 'tool', 'index', '', 10, 1, 1599830983, 1599830943),
+(14, 2, 13, '缓存管理', 'session_manage', 'index', '', 9, 1, 0, 1599831025),
+(15, 2, 13, 'SQL控制台', 'sql_controller', 'index', '', 8, 2, 0, 1599831065),
+(16, 2, 17, '应用中心', 'center', 'index', '', 20, 1, 1599831155, 1599831110),
+(17, 2, 0, '应用管理', 'manage', 'index', '', 19, 1, 0, 1599831143),
+(18, 2, 17, '应用商店', 'shop', 'index', '', 18, 2, 0, 1599831182),
+(19, 2, 0, '数据管理', 'num_manage', 'index', '', 30, 1, 0, 1599831728),
+(20, 2, 19, '消息管理', 'message_manage', 'index', '', 29, 1, 0, 1599831770),
+(21, 2, 19, '支付日志', 'pay_log', 'index', '', 28, 2, 0, 1599831806),
+(22, 1, 2, 'SEO设置', 'seo_setting', 'index', '', 86, 1, 0, 1600138588),
+(23, 1, 2, '协议管理', 'agreement_mange', 'index', '', 85, 1, 0, 1600138655),
+(24, 1, 6, '角色管理', 'role_manage', 'index', '', 78, 1, 0, 1600138787),
+(25, 1, 6, '权限分配', 'authority_allocation', 'index', '', 86, 1, 0, 1600138867);
 
 -- --------------------------------------------------------
 
@@ -197,7 +211,7 @@ INSERT INTO `base_configure` (`id`, `user_id`, `site_name`, `computer_logo`, `ph
 CREATE TABLE `eamil_setting` (
   `id` int(10) UNSIGNED NOT NULL COMMENT '邮箱设置id',
   `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
-  `smtp_server` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP服务器',
+  `smtp_server` char(255) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP服务器',
   `smtp_port` int(5) UNSIGNED DEFAULT NULL COMMENT 'SMTP端口',
   `sender_email_address` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '发信人邮件地址',
   `smtp_proving_username` char(30) CHARACTER SET utf8 DEFAULT NULL COMMENT 'SMTP身份验证用户名',
@@ -214,7 +228,7 @@ CREATE TABLE `eamil_setting` (
 --
 
 INSERT INTO `eamil_setting` (`id`, `user_id`, `smtp_server`, `smtp_port`, `sender_email_address`, `smtp_proving_username`, `smtp_proving_password`, `ssl_encrypt_way`, `sender_show_name`, `receive_email_address`, `update_time`, `create_time`) VALUES
-(1, 1, 'smtp.qq.com', 465, '768190260@qq.com', '768190260@qq.com', 'klrrfgzknypabedh', 2, '刘盖', '1583293461@qq.com', 1599205835, 1599116245);
+(1, 1, 'smtp.qq.com', 465, '768190260@qq.com', '768190260@qq.com', '768190260', 2, '刘盖', '1583293461@qq.com', 1599381803, 1599116245);
 
 -- --------------------------------------------------------
 
@@ -255,6 +269,8 @@ CREATE TABLE `manager_list` (
   `telephone` char(11) CHARACTER SET utf8 NOT NULL COMMENT '手机号码',
   `sex` tinyint(1) UNSIGNED NOT NULL COMMENT '性别',
   `authority_group` int(11) UNSIGNED NOT NULL COMMENT '权限组',
+  `login_total` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '登录次数',
+  `login_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上一次登录时间',
   `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -263,11 +279,14 @@ CREATE TABLE `manager_list` (
 -- 转存表中的数据 `manager_list`
 --
 
-INSERT INTO `manager_list` (`id`, `user_id`, `username`, `password`, `telephone`, `sex`, `authority_group`, `update_time`, `create_time`) VALUES
-(1, 1, '刘盖', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 10, 0, 1599811023),
-(2, 1, '刘开放', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 10, 0, 1599812737),
-(3, 1, '刘芳', 'c33367701511b4f6020ec61ded352059', '15237367115', 1, 0, 0, 1599812821),
-(4, 2, '刘宗洋', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 0, 0, 1599813408);
+INSERT INTO `manager_list` (`id`, `user_id`, `username`, `password`, `telephone`, `sex`, `authority_group`, `login_total`, `login_time`, `update_time`, `create_time`) VALUES
+(9, 2, '吕秀才', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 3, 13, 0, 0, 1600067331, 1599987183),
+(2, 1, '刘开放', 'e10adc3949ba59abbe56e057f20f883e', '15237367888', 1, 10, 12, 0, 1599989460, 1599812737),
+(3, 1, '刘芳', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 2, 1, 23, 1599812737, 1600067236, 1599812821),
+(4, 2, '刘宗洋', 'e10adc3949ba59abbe56e057f20f883e', '15237367666', 1, 12, 0, 0, 1600067319, 1599813408),
+(5, 1, '高手', 'e10adc3949ba59abbe56e057f20f883e', '15237367666', 3, 1, 0, 0, 1600067241, 1599830186),
+(6, 2, '刘艳丽', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 14, 0, 0, 0, 1599831366),
+(8, 1, '刘盖', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 3, 0, 0, 1600092830, 1599986171);
 
 -- --------------------------------------------------------
 
@@ -379,7 +398,7 @@ CREATE TABLE `role_manage` (
   `id` int(10) UNSIGNED NOT NULL COMMENT '角色管理id',
   `user_id` int(10) UNSIGNED NOT NULL COMMENT '用户id',
   `role_delimiter` char(18) CHARACTER SET utf8 NOT NULL COMMENT '角色名称',
-  `is_start` tinyint(1) UNSIGNED NOT NULL COMMENT '是否启用',
+  `is_start` tinyint(1) UNSIGNED NOT NULL COMMENT '角色状态',
   `authority` text CHARACTER SET utf8 COMMENT '拥有权限',
   `update_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `create_time` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间'
@@ -390,8 +409,13 @@ CREATE TABLE `role_manage` (
 --
 
 INSERT INTO `role_manage` (`id`, `user_id`, `role_delimiter`, `is_start`, `authority`, `update_time`, `create_time`) VALUES
+(1, 1, '超级管理员', 1, '1,6,2,1', 1599829466, 1599717913),
+(3, 1, '查看者', 2, '3,1', 1599829460, 1599717990),
 (10, 1, '管理员', 1, '6,17,21,20', 0, 1599798103),
-(11, 1, '编辑者', 1, '1,18', 0, 1599798124);
+(11, 1, '编辑者', 2, '11,1', 1599830388, 1599798124),
+(12, 2, '空调', 1, '17,16,18,13,14,15', 0, 1599831213),
+(13, 2, '冰箱', 2, '13,14,15', 0, 1599831225),
+(14, 2, '洗衣机', 2, '17,16,18', 0, 1599831235);
 
 -- --------------------------------------------------------
 
@@ -413,7 +437,7 @@ CREATE TABLE `search` (
 --
 
 INSERT INTO `search` (`id`, `user_id`, `site_status`, `search_key`, `update_time`, `create_time`) VALUES
-(1, 1, 1, '政治', 1598939477, 1597505001);
+(1, 1, 1, '政治', 1597543576, 1597505001);
 
 -- --------------------------------------------------------
 
@@ -641,6 +665,12 @@ ALTER TABLE `search`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `seo_setting`
+--
+ALTER TABLE `seo_setting`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `shop_message`
 --
 ALTER TABLE `shop_message`
@@ -690,7 +720,7 @@ ALTER TABLE `agreement_mange`
 -- 使用表AUTO_INCREMENT `authority_allocation`
 --
 ALTER TABLE `authority_allocation`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '权限id', AUTO_INCREMENT=22;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '权限id', AUTO_INCREMENT=26;
 
 --
 -- 使用表AUTO_INCREMENT `backstage_config`
@@ -711,10 +741,16 @@ ALTER TABLE `eamil_setting`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱设置id', AUTO_INCREMENT=2;
 
 --
+-- 使用表AUTO_INCREMENT `email_message_template`
+--
+ALTER TABLE `email_message_template`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '邮箱消息设置ID', AUTO_INCREMENT=3;
+
+--
 -- 使用表AUTO_INCREMENT `manager_list`
 --
 ALTER TABLE `manager_list`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '管理员id', AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '管理员id', AUTO_INCREMENT=11;
 
 --
 -- 使用表AUTO_INCREMENT `message_template`
@@ -744,13 +780,19 @@ ALTER TABLE `pic_identifying_code`
 -- 使用表AUTO_INCREMENT `role_manage`
 --
 ALTER TABLE `role_manage`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色管理id', AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色管理id', AUTO_INCREMENT=20;
 
 --
 -- 使用表AUTO_INCREMENT `search`
 --
 ALTER TABLE `search`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '搜索ID', AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `seo_setting`
+--
+ALTER TABLE `seo_setting`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'SEO设置ID', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `shop_message`
