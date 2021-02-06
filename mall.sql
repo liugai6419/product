@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2020-11-01 15:35:02
+-- 生成日期： 2021-02-06 16:46:11
 -- 服务器版本： 5.7.26
--- PHP 版本： 7.3.9
+-- PHP 版本： 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -68,7 +68,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `telephone`, `sex`, `authority_group`, `login_total`, `login_time`, `update_time`, `create_time`) VALUES
-(5, '刘盖', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 1, 114, 1603974782, 0, 1600249007),
+(5, '刘盖', 'e10adc3949ba59abbe56e057f20f883e', '15237367115', 1, 1, 115, 1604216790, 0, 1600249007),
 (16, '刘芳', 'e10adc3949ba59abbe56e057f20f883e', '15237367111', 2, 10, 14, 1602426163, 0, 1602387699),
 (17, '刘开放', 'e10adc3949ba59abbe56e057f20f883e', '15237367222', 1, 20, 4, 1602413536, 0, 1602387719),
 (18, '刘艳丽', 'e10adc3949ba59abbe56e057f20f883e', '15237367888', 2, 1, 13, 1602413733, 1602410846, 1602396242);
@@ -3488,7 +3488,7 @@ CREATE TABLE `brand_list` (
 INSERT INTO `brand_list` (`id`, `name`, `classify`, `website`, `logo_img`, `order`, `is_start`, `update_time`, `create_time`) VALUES
 (1, '华为', 11, 'https://www.huawei.com', '/static/admin/uploads/20201023\\16db2d4f02ce3f6e3e66d95cb3ad700a.png', 10, 1, 0, 1603458644),
 (6, '格力', 4, '', '', 0, 1, 1603778425, 1603462602),
-(3, '腾讯', 4, 'https://www.tengxun.comhttps://www.tengxun.comhttps://www.tengxun.comhttps://www.tengxun.com', '/static/admin/uploads/20201023\\328c376e2aad71a52e845b8f3e33a7f5.png', 32, 1, 1603784618, 1603458749),
+(3, '腾讯', 4, 'https://www.tengxun.comhttps://www.tengxun.comhttps://www.tengxun.comhttps://www.tengxun.com', '/static/admin/uploads/20201023\\328c376e2aad71a52e845b8f3e33a7f5.png', 32, 1, 1604217063, 1603458749),
 (4, '宝马', 4, '', '', 110, 2, 1603462524, 1603458817),
 (7, '阿里', 17, '', '', 0, 1, 1603782121, 1603782115),
 (8, '奔驰', 17, '', '', 0, 1, 0, 1603784608);
